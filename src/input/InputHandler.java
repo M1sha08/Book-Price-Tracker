@@ -15,7 +15,7 @@ public class InputHandler {
         System.out.println("-------------------------------");
 
         System.out.println("1. Physical Book");
-        System.out.println("2. E-Book Book");
+        System.out.println("2. E-Book");
         System.out.println("3. AudioBook");
         System.out.println("4. Exit");
 
