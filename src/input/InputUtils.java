@@ -1,6 +1,7 @@
 package input;
 
 import java.util.Scanner;
+import java.lang.Integer;
 
 public class InputUtils {
     private final Scanner scanner;
@@ -9,35 +10,39 @@ public class InputUtils {
         this.scanner = scanner;
     }
 
+    public int tryReadInt(String prompt) {
+        System.out.print(prompt);
+
+        if (scanner.hasNextInt()) {
+            int value = scanner.nextInt();
+            scanner.nextLine();
+            return value;
+        }
+
+        scanner.nextLine();
+        return Integer.MIN_VALUE;
+    }
+
     public int askForInt(String prompt) {
         while (true) {
-            System.out.print(prompt);
+            int value = tryReadInt(prompt);
+            if (value != Integer.MIN_VALUE) return value;
 
-            if (scanner.hasNextInt()) {
-                int value = scanner.nextInt();
-                scanner.nextLine();
-                return value;
-            }
             System.out.println("Please enter a valid number.");
-            scanner.nextLine();
         }
     }
 
     public String askForString(String prompt, boolean isRequired) {
-        String userText;
         while (true) {
             System.out.print(prompt);
-            userText = scanner.nextLine();
+            String userText = scanner.nextLine();
 
-            if (!isRequired) break;
-
-            if (userText.isEmpty()) {
-                System.out.println("Please enter required information.");
-                continue;
+            if (!isRequired || userText.isEmpty()) {
+                return userText;
             }
-            break;
+
+            System.out.println("Please enter required information.");
         }
-        return userText;
     }
 
 }
